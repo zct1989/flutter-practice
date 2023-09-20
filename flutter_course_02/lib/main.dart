@@ -39,7 +39,7 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Test1'),
       ),
-      body: const UserTransaction(),
+      body: const SingleChildScrollView(child: UserTransaction()),
     );
   }
 }

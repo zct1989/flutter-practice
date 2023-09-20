@@ -21,29 +21,20 @@ class _UserTransactionState extends State<UserTransaction> {
       amount: 89.9,
       date: DateTime.now(),
     ),
-    Transaction(
-      id: 't2',
-      title: 'new box',
-      amount: 19.9,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'new eggs',
-      amount: 9.9,
-      date: DateTime.now(),
-    ),
   ];
 
-  addTransaction(String title, double number) {
-    _userTransaction.add(
-      Transaction(
-        id: DateTime.now().toString(),
-        title: title,
-        amount: number,
-        date: DateTime.now(),
-      ),
-    );
+  addTransaction(String title, double amount) {
+    setState(() {
+      _userTransaction.add(
+        Transaction(
+          id: DateTime.now().toString(),
+          title: title,
+          amount: amount,
+          date: DateTime.now(),
+        ),
+      );
+    });
+    print(_userTransaction.length);
   }
 
   @override
