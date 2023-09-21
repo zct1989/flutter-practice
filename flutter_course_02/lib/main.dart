@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course_02/widgets/user_transaction.dart';
+
+import 'models/transaction.dart';
+import 'widgets/new _transaction.dart';
+import 'widgets/transaction_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,16 +33,92 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return MyHomePageState();
+  }
+}
+
+class MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> transactions = [
+    Transaction(
+      id: 't1',
+      title: 'new shoes',
+      amount: 89.9,
+      date: DateTime.now(),
+    ),
+  ];
+
+  addTransaction(String title, double amount) {
+    setState(() {
+      transactions.add(
+        Transaction(
+          id: DateTime.now().toString(),
+          title: title,
+          amount: amount,
+          date: DateTime.now(),
+        ),
+      );
+    });
+  }
+
+  void startAddTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return GestureDetector(
+            onTap: () {},
+            behavior: HitTestBehavior.opaque,
+            child: NewTransaction(addTransaction: addTransaction),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Test1'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                startAddTransaction(context);
+              },
+              icon: const Icon(Icons.add))
+        ],
       ),
-      body: const SingleChildScrollView(child: UserTransaction()),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Card(
+              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+              color: Colors.blue,
+              child: SizedBox(
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text('CHART1!'),
+                ),
+              ),
+            ),
+            TransactionList(
+              transactions: transactions,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          startAddTransaction(context);
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
