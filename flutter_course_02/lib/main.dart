@@ -26,7 +26,21 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.amber,
+        secondaryHeaderColor: Colors.red,
+        textTheme: const TextTheme(
+            labelMedium: TextStyle(
+          fontSize: 25,
+          color: Colors.amber,
+          fontWeight: FontWeight.bold,
+        )),
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontSize: 30,
+            color: Colors.red,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       home: const MyHomePage(),
     );
@@ -81,7 +95,9 @@ class MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Test1'),
+        title: const Text(
+          'Test1',
+        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -90,26 +106,35 @@ class MyHomePageState extends State<MyHomePage> {
               icon: const Icon(Icons.add))
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Card(
-              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              color: Colors.blue,
-              child: SizedBox(
-                width: double.infinity,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text('CHART1!'),
+      body: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: Theme.of(context).primaryColor, width: 5),
+            gradient: const LinearGradient(
+              colors: [Color(0xFFfbab66), Color(0xFFf7418c)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            )),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Card(
+                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                color: Colors.blue,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text('CHART1!'),
+                  ),
                 ),
               ),
-            ),
-            TransactionList(
-              transactions: transactions,
-            ),
-          ],
+              TransactionList(
+                transactions: transactions,
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
